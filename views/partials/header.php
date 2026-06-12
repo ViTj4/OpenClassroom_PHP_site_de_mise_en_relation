@@ -2,8 +2,12 @@
   <div class="header__container">
     <a class="header__logo-link" href="index.php?page=home" aria-label="Retour à l'accueil Tom Troc">
       <img
-        class="header__logo"
+        class="header__logo header__logo--desktop"
         src="assets/svg/logo.svg"
+        alt="Logo Tom Troc">
+      <img
+        class="header__logo header__logo--mobile"
+        src="assets/mobile/svg/mobileHeaderLogo.svg"
         alt="Logo Tom Troc">
     </a>
 
@@ -57,5 +61,13 @@
         </li>
       </ul>
     </nav>
+
+    <button class="header__burger-button" type="button" aria-label="Ouvrir le menu">
+      <img
+        class="header__burger-icon"
+        src="assets/mobile/svg/burgerMenu.svg"
+        alt=""
+        aria-hidden="true">
+    </button>
   </div>
 </header>

@@ -14,8 +14,12 @@
 
     <a class="footer__logo-link" href="index.php?page=home" aria-label="Retour à l'accueil">
       <img
-        class="footer__logo"
+        class="footer__logo footer__logo--desktop"
         src="assets/svg/footerLogo.svg"
+        alt="Logo Tom Troc">
+      <img
+        class="footer__logo footer__logo--mobile"
+        src="assets/mobile/svg/mobileFooterLogo.svg"
         alt="Logo Tom Troc">
     </a>
   </nav>

@@ -1,0 +1,198 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.header {
+  width: 100%;
+  height: $header-height;
+  background-color: $color-header-background;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    padding: 0 $desktop-page-padding;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo-link {
+    width: 155px;
+    height: 51px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  &__logo {
+    width: 155px;
+    height: 51px;
+    display: block;
+  }
+
+  &__logo--mobile {
+    display: none;
+  }
+
+  &__nav {
+    margin-left: 115px;
+  }
+
+  &__nav-list,
+  &__user-list {
+    @include reset-list;
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-list {
+    gap: 56px;
+  }
+
+  &__nav-link,
+  &__user-link {
+    @include nav-link;
+  }
+
+  &__nav-link:hover,
+  &__nav-link:focus,
+  &__user-link:hover,
+  &__user-link:focus {
+    text-decoration: underline;
+  }
+
+  &__separator {
+    width: 1px;
+    height: 35px;
+    margin-left: auto;
+    margin-right: 70px;
+    background-color: $color-separator;
+  }
+
+  &__user-list {
+    gap: 42px;
+  }
+
+  &__user-link {
+    gap: 6px;
+  }
+
+  &__message-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  &__message-count {
+    min-width: 15px;
+    height: 15px;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6.75px;
+    background-color: $color-text;
+    color: $color-white;
+    font-family: $font-family-base;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__account-icon {
+    width: 9.29px;
+    height: 13px;
+    display: block;
+  }
+
+  &__burger-button {
+    display: none;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .header {
+    height: auto;
+
+    &__container {
+      min-height: $header-height;
+      padding: 14px $tablet-page-padding;
+      flex-wrap: wrap;
+      gap: 16px 32px;
+    }
+
+    &__nav {
+      margin-left: 48px;
+    }
+
+    &__separator {
+      display: none;
+    }
+
+    &__user-nav {
+      width: 100%;
+    }
+
+    &__user-list {
+      justify-content: flex-end;
+      gap: 32px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .header {
+    height: $mobile-header-height;
+
+    &__container {
+      min-height: $mobile-header-height;
+      padding: 0 14px;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0;
+    }
+
+    &__logo-link {
+      width: 78px;
+      height: 26px;
+    }
+
+    &__logo {
+      width: 78px;
+      height: 26px;
+    }
+
+    &__logo--desktop {
+      display: none;
+    }
+
+    &__logo--mobile {
+      display: block;
+    }
+
+    &__nav,
+    &__user-nav,
+    &__separator {
+      display: none;
+    }
+
+    &__burger-button {
+      width: 22px;
+      height: 15px;
+      margin-left: auto;
+      padding: 0;
+      border: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    &__burger-icon {
+      width: 22px;
+      height: 15px;
+      display: block;
+    }
+  }
+}
