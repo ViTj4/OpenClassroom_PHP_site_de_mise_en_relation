@@ -17,6 +17,8 @@
   </main>
 
   <?php require __DIR__ . '/../partials/footer.php' ?>
+
+  <script src="assets/js/mobile-menu.js" defer></script>
 </body>
 
 </html>

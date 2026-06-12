@@ -155,6 +155,7 @@ a {
   .header__logo-link {
     width: 78px;
     height: 26px;
+    order: 1;
   }
   .header__logo {
     width: 78px;
@@ -178,13 +179,66 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    order: 2;
     background: transparent;
     cursor: pointer;
+  }
+  .header__burger-button::before, .header__burger-button::after {
+    content: "";
+    width: 22px;
+    height: 1px;
+    border-radius: 1px;
+    position: absolute;
+    left: 0;
+    top: 7px;
+    display: none;
+    background-color: #A6A6A6;
   }
   .header__burger-icon {
     width: 22px;
     height: 15px;
     display: block;
+  }
+  .header--menu-open {
+    height: auto;
+  }
+  .header--menu-open .header__burger-icon {
+    display: none;
+  }
+  .header--menu-open .header__burger-button::before, .header--menu-open .header__burger-button::after {
+    display: block;
+  }
+  .header--menu-open .header__burger-button::before {
+    transform: rotate(45deg);
+  }
+  .header--menu-open .header__burger-button::after {
+    transform: rotate(-45deg);
+  }
+  .header--menu-open .header__container {
+    padding-top: 8px;
+    padding-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .header--menu-open .header__nav, .header--menu-open .header__user-nav {
+    width: 100%;
+    display: block;
+  }
+  .header--menu-open .header__nav {
+    margin: 18px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid #E6E2DC;
+    order: 3;
+  }
+  .header--menu-open .header__user-nav {
+    margin-top: 18px;
+    order: 4;
+  }
+  .header--menu-open .header__nav-list, .header--menu-open .header__user-list {
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
   }
 }
 .footer {
@@ -248,5 +302,228 @@ a {
     width: 22px;
     height: 18px;
     display: block;
+  }
+}
+
+.home-hero {
+  min-height: calc(100vh - 80px);
+  background-color: #F5F3EF;
+}
+.home-hero__inner {
+  width: min(846px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 83px 0 96px;
+  display: grid;
+  grid-template-columns: 335px 404px;
+  column-gap: 107px;
+  align-items: start;
+}
+.home-hero__content {
+  padding-top: 166px;
+}
+.home-hero__title {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1;
+  color: #000000;
+}
+.home-hero__break--mobile, .home-hero__space--mobile {
+  display: none;
+}
+.home-hero__text {
+  width: 329px;
+  margin: 18px 0 0;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+  color: #292929;
+}
+.home-hero__button {
+  width: 152px;
+  height: 63px;
+  margin-top: 39px;
+  padding: 22px 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #00AC66;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 160ms ease;
+}
+.home-hero__button:hover, .home-hero__button:focus {
+  background-color: #006D41;
+}
+.home-hero__figure {
+  margin: 0;
+}
+.home-hero__image {
+  width: 404px;
+  height: 539px;
+  display: block;
+  object-fit: cover;
+}
+.home-hero__caption {
+  margin-top: 14px;
+  padding-right: 4px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  color: #A6A6A6;
+  text-align: right;
+}
+
+@media (max-width: 1024px) {
+  .home-hero__inner {
+    width: min(846px, calc(100% - 48px));
+    padding: 48px 0 64px;
+    grid-template-columns: minmax(260px, 335px) minmax(260px, 360px);
+    column-gap: 40px;
+    align-items: center;
+  }
+  .home-hero__content {
+    padding-top: 0;
+  }
+  .home-hero__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 404/539;
+  }
+}
+@media (min-width: 769px) and (max-height: 620px) {
+  .home-hero__inner {
+    padding-top: 32px;
+    padding-bottom: 40px;
+    grid-template-columns: minmax(260px, 335px) minmax(220px, 300px);
+    column-gap: 32px;
+  }
+  .home-hero__image {
+    max-height: 430px;
+    object-fit: cover;
+  }
+}
+@media (max-width: 768px) {
+  .home-hero {
+    min-height: auto;
+  }
+  .home-hero__inner {
+    width: 100%;
+    padding: 16px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+  }
+  .home-hero__content {
+    order: 2;
+    padding: 0 20px;
+  }
+  .home-hero__title {
+    width: 335px;
+    min-height: 80px;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .home-hero__break--desktop, .home-hero__space--desktop {
+    display: none;
+  }
+  .home-hero__break--mobile, .home-hero__space--mobile {
+    display: inline;
+  }
+  .home-hero__text {
+    width: 337px;
+    max-width: calc(100vw - 38px);
+    min-height: 95px;
+    margin-top: 16px;
+    margin-left: -2px;
+    font-family: "Inter", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1;
+  }
+  .home-hero__button {
+    width: 100%;
+    height: 51px;
+    margin-top: 24px;
+    padding: 17px 38px;
+  }
+  .home-hero__figure {
+    width: calc(100% + 2px);
+    margin-left: -1px;
+    order: 1;
+  }
+  .home-hero__image {
+    width: 100%;
+    height: auto;
+    max-width: none;
+    aspect-ratio: 377/503;
+  }
+  .home-hero__caption {
+    max-width: none;
+    margin-top: 9px;
+    padding-right: 20px;
+  }
+}
+@media (width: 768px) and (max-height: 620px) {
+  .home-hero__inner {
+    width: calc(100% - 48px);
+    padding: 32px 0 40px;
+    display: grid;
+    grid-template-columns: minmax(260px, 335px) minmax(220px, 300px);
+    column-gap: 32px;
+    align-items: center;
+  }
+  .home-hero__content {
+    order: 1;
+    padding: 0;
+  }
+  .home-hero__title {
+    width: auto;
+    min-height: 0;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .home-hero__break--desktop, .home-hero__space--desktop {
+    display: inline;
+  }
+  .home-hero__break--mobile, .home-hero__space--mobile {
+    display: none;
+  }
+  .home-hero__text {
+    width: auto;
+    max-width: 329px;
+    min-height: 0;
+    margin-top: 18px;
+    margin-left: 0;
+  }
+  .home-hero__button {
+    width: 152px;
+    height: 63px;
+    margin-top: 32px;
+    padding: 22px 38px;
+  }
+  .home-hero__figure {
+    width: 100%;
+    margin-left: 0;
+    order: 2;
+  }
+  .home-hero__image {
+    width: 100%;
+    max-height: 430px;
+    aspect-ratio: 404/539;
+    object-fit: cover;
+  }
+  .home-hero__caption {
+    padding-right: 4px;
   }
 }

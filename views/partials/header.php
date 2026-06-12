@@ -11,7 +11,7 @@
         alt="Logo Tom Troc">
     </a>
 
-    <nav class="header__nav" aria-label="Navigation principale">
+    <nav class="header__nav" id="header-main-navigation" aria-label="Navigation principale">
       <ul class="header__nav-list">
         <li class="header__nav-item">
           <a class="header__nav-link" href="index.php?page=home">
@@ -29,7 +29,7 @@
 
     <div class="header__separator" aria-hidden="true"></div>
 
-    <nav class="header__user-nav" aria-label="Navigation utilisateur">
+    <nav class="header__user-nav" id="header-user-navigation" aria-label="Navigation utilisateur">
       <ul class="header__user-list">
         <li class="header__user-item">
           <a class="header__user-link" href="index.php?page=messages">
@@ -62,7 +62,12 @@
       </ul>
     </nav>
 
-    <button class="header__burger-button" type="button" aria-label="Ouvrir le menu">
+    <button
+      class="header__burger-button"
+      type="button"
+      aria-label="Ouvrir le menu"
+      aria-controls="header-main-navigation header-user-navigation"
+      aria-expanded="false">
       <img
         class="header__burger-icon"
         src="assets/mobile/svg/burgerMenu.svg"
