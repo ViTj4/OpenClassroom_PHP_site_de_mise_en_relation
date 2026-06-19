@@ -54,6 +54,10 @@
     @include nav-link;
   }
 
+  &__nav-link--active {
+    font-weight: 600;
+  }
+
   &__nav-link:hover,
   &__nav-link:focus,
   &__user-link:hover,

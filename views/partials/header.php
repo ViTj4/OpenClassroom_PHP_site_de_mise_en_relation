@@ -1,3 +1,9 @@
+<?php
+  $currentPage = $page ?? 'home';
+  $isHomeActive = $currentPage === 'home';
+  $isBooksActive = in_array($currentPage, ['books', 'book'], true);
+?>
+
 <header class="header">
   <div class="header__container">
     <a class="header__logo-link" href="index.php?page=home" aria-label="Retour à l'accueil Tom Troc">
@@ -14,13 +20,19 @@
     <nav class="header__nav" id="header-main-navigation" aria-label="Navigation principale">
       <ul class="header__nav-list">
         <li class="header__nav-item">
-          <a class="header__nav-link" href="index.php?page=home">
+          <a
+            class="header__nav-link<?= $isHomeActive ? ' header__nav-link--active' : '' ?>"
+            href="index.php?page=home"
+            <?= $isHomeActive ? 'aria-current="page"' : '' ?>>
             Accueil
           </a>
         </li>
 
         <li class="header__nav-item">
-          <a class="header__nav-link" href="index.php?page=books">
+          <a
+            class="header__nav-link<?= $isBooksActive ? ' header__nav-link--active' : '' ?>"
+            href="index.php?page=books"
+            <?= $isBooksActive ? 'aria-current="page"' : '' ?>>
             Nos livres à l'échange
           </a>
         </li>
