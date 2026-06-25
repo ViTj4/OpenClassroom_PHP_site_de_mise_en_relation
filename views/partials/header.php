@@ -3,6 +3,7 @@
   $isHomeActive = $currentPage === 'home';
   $isBooksActive = in_array($currentPage, ['books', 'book'], true);
   $isLoginActive = in_array($currentPage, ['login', 'register'], true);
+  $connectedUser = $_SESSION['user'] ?? null;
 ?>
 
 <header class="header">
@@ -68,13 +69,35 @@
         </li>
 
         <li class="header__user-item">
-          <a
-            class="header__user-link<?= $isLoginActive ? ' header__user-link--active' : '' ?>"
-            href="index.php?page=register"
-            <?= $isLoginActive ? 'aria-current="page"' : '' ?>>
-            Connexion
-          </a>
+          <?php if ($connectedUser !== null): ?>
+            <div class="header__account-menu">
+              <a class="header__user-link header__user-link--active header__account-trigger" href="index.php?page=account">
+                Bonjour <?= htmlspecialchars($connectedUser['pseudo']) ?>
+              </a>
+
+              <div class="header__dropdown" aria-label="Menu utilisateur">
+                <a class="header__dropdown-link" href="index.php?page=logout">
+                  Se déconnecter
+                </a>
+              </div>
+            </div>
+          <?php else: ?>
+            <a
+              class="header__user-link<?= $isLoginActive ? ' header__user-link--active' : '' ?>"
+              href="index.php?page=login"
+              <?= $isLoginActive ? 'aria-current="page"' : '' ?>>
+              Connexion
+            </a>
+          <?php endif; ?>
         </li>
+
+        <?php if ($connectedUser !== null): ?>
+          <li class="header__user-item header__logout-mobile-item">
+            <a class="header__user-link" href="index.php?page=logout">
+              Se déconnecter
+            </a>
+          </li>
+        <?php endif; ?>
       </ul>
     </nav>
 

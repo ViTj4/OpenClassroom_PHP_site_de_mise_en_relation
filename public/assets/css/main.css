@@ -117,6 +117,44 @@ a {
 .header__user-link {
   gap: 6px;
 }
+.header__account-menu {
+  position: relative;
+}
+.header__account-trigger {
+  cursor: pointer;
+}
+.header__dropdown {
+  min-width: 132px;
+  padding-top: 10px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: none;
+  z-index: 10;
+}
+.header__dropdown-link {
+  padding: 10px 12px;
+  border-radius: 6px;
+  display: block;
+  background-color: #ffffff;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.06);
+  color: #292929;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.header__dropdown-link:hover, .header__dropdown-link:focus {
+  text-decoration: underline;
+}
+.header__account-menu:hover .header__dropdown, .header__account-menu:focus-within .header__dropdown {
+  display: block;
+}
+.header__logout-mobile-item {
+  display: none;
+}
 .header__message-icon {
   width: 16px;
   height: 16px;
@@ -268,6 +306,15 @@ a {
     align-items: flex-start;
     flex-direction: column;
     gap: 16px;
+  }
+  .header__dropdown {
+    display: none;
+  }
+  .header__account-menu {
+    display: none;
+  }
+  .header__logout-mobile-item {
+    display: list-item;
   }
 }
 .footer {
@@ -1469,6 +1516,32 @@ a {
 .auth-page__form {
   width: 322px;
 }
+.auth-page__alert {
+  width: 322px;
+  margin: -26px 0 24px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.25;
+}
+.auth-page__alert p {
+  margin: 0;
+}
+.auth-page__alert p + p {
+  margin-top: 6px;
+}
+.auth-page__alert--error {
+  border: 1px solid #D64545;
+  background-color: #FFF4F4;
+  color: #8F2424;
+}
+.auth-page__alert--success {
+  border: 1px solid #00AC66;
+  background-color: #F0FFF8;
+  color: #006D41;
+}
 .auth-page__field {
   width: 322px;
   min-height: 77px;
@@ -1575,7 +1648,7 @@ a {
     min-height: auto;
     padding: 58px 20px 56px;
   }
-  .auth-page__form-inner, .auth-page__form, .auth-page__field, .auth-page__input, .auth-page__button {
+  .auth-page__form-inner, .auth-page__form, .auth-page__alert, .auth-page__field, .auth-page__input, .auth-page__button {
     width: 100%;
   }
   .auth-page__title {

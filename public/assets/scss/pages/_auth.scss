@@ -30,6 +30,37 @@
     width: 322px;
   }
 
+  &__alert {
+    width: 322px;
+    margin: -26px 0 24px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: $font-family-text;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.25;
+
+    p {
+      margin: 0;
+    }
+
+    p + p {
+      margin-top: 6px;
+    }
+  }
+
+  &__alert--error {
+    border: 1px solid #D64545;
+    background-color: #FFF4F4;
+    color: #8F2424;
+  }
+
+  &__alert--success {
+    border: 1px solid $color-primary;
+    background-color: #F0FFF8;
+    color: #006D41;
+  }
+
   &__field {
     width: 322px;
     min-height: 77px;
@@ -154,6 +185,7 @@
 
     &__form-inner,
     &__form,
+    &__alert,
     &__field,
     &__input,
     &__button {

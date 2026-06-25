@@ -1,33 +1,33 @@
 <?php
-$page = $_GET['page'] ?? 'home';
+
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/autoload.php';
+
+$page   = $_GET['page'] ?? 'home';
+$method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+$dbManager        = DBManager::getInstance();
+$userManager      = new UserManager($dbManager);
+$csrfTokenManager = new CsrfTokenManager();
+$passwordHasher   = new PasswordHasher();
+
+$pageController = new PageController();
+$authController = new AuthController($userManager, $csrfTokenManager, $passwordHasher);
+
 $routes = [
-  'home' => [
-    'title' => 'Tom Troc',
-    'view' => __DIR__ . '/../views/home/index.php',
-  ],
-  'books' => [
-    'title' => 'Nos livres à l\'échange - Tom Troc',
-    'view' => __DIR__ . '/../views/book/index.php',
-  ],
-  'book' => [
-    'title' => 'The Kinkfolk Table - Tom Troc',
-    'view' => __DIR__ . '/../views/book/show.php',
-  ],
-  'register' => [
-    'title' => 'Inscription - Tom Troc',
-    'view' => __DIR__ . '/../views/auth/register.php',
-  ],
-  'login' => [
-    'title' => 'Connexion - Tom Troc',
-    'view' => __DIR__ . '/../views/auth/login.php',
-  ],
+    'GET' => [
+        'home'     => [$pageController, 'home'],
+        'books'    => [$pageController, 'books'],
+        'book'     => [$pageController, 'book'],
+        'register' => [$authController, 'showRegister'],
+        'login'    => [$authController, 'showLogin'],
+        'logout'   => [$authController, 'logout'],
+    ],
+    'POST' => [
+        'register' => [$authController, 'register'],
+        'login'    => [$authController, 'login'],
+    ],
 ];
 
-$route = $routes[$page] ?? $routes['home'];
-$title = $route['title'];
-
-ob_start();
-require $route['view'];
-
-$content = ob_get_clean();
-require __DIR__ . '/../views/layouts/layout.php';
+$action = $routes[$method][$page] ?? $routes['GET']['home'];
+$action();

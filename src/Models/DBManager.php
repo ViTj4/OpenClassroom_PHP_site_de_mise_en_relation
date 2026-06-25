@@ -5,13 +5,11 @@
  * Cette classe est un singleton. Cela signifie qu'il n'est pas possible de créer plusieurs instances de cette classe.
  * Pour récupérer une instance de cette classe, il faut utiliser la méthode getInstance().
  */
-class DBManager 
+class DBManager
 {
     // Création d'une classe singleton qui permet de se connecter à la base de données.
     // On crée une instance de la classe DBConnect qui permet de se connecter à la base de données.
-    private static $instance;
-
-    private $db;
+    private static ?DBManager $instance = null;
 
     /**
      * Constructeur de la classe DBManager.
@@ -19,31 +17,44 @@ class DBManager
      * Ce constructeur est privé. Pour récupérer une instance de la classe, il faut utiliser la méthode getInstance().
      * @see DBManager::getInstance()
      */
-    private function __construct() 
+    private function __construct(
+        private readonly PDO $db
+    )
     {
-        // On se connecte à la base de données.
-        $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     /**
      * Méthode qui permet de récupérer l'instance de la classe DBManager.
      * @return DBManager
      */
-    public static function getInstance() : DBManager
+    public static function getInstance(): DBManager
     {
-        if (!self::$instance) {
-            self::$instance = new DBManager();
+        if (self::$instance === null) {
+            self::$instance = new DBManager(self::createPDO());
         }
         return self::$instance;
+    }
+
+    private static function createPDO(): PDO
+    {
+        $host     = requiredEnv('DB_HOST');
+        $database = requiredEnv('DB_NAME');
+        $user     = requiredEnv('DB_USER');
+        // Peut rester vide pour utilisation de XAMPP en local.
+        $password = env('DB_PASS', '');
+
+        $pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database . ';charset=utf8mb4', $user, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+        return $pdo;
     }
 
     /**
      * Méthode qui permet de récupérer l'objet PDO qui permet de se connecter à la base de données.
      * @return PDO
      */
-    public function getPDO() : PDO
+    public function getPDO(): PDO
     {
         return $this->db;
     }
@@ -51,13 +62,13 @@ class DBManager
     /**
      * Méthode qui permet d'exécuter une requête SQL.
      * Si des paramètres sont passés, on utilise une requête préparée.
-     * @param string $sql : la requête SQL à exécuter.
-     * @param array|null $params : les paramètres de la requête SQL.
-     * @return PDOStatement : le résultat de la requête SQL.
+     * @param string $sql       : la requête SQL à exécuter.
+     * @param array|null $params: les paramètres de la requête SQL.
+     * @return PDOStatement     : le résultat de la requête SQL.
      */
-    public function query(string $sql, ?array $params = null) : PDOStatement
+    public function query(string $sql, ?array $params = null): PDOStatement
     {
-        if ($params == null) {
+        if ($params === null) {
             $query = $this->db->query($sql);
         } else {
             $query = $this->db->prepare($sql);
@@ -65,5 +76,4 @@ class DBManager
         }
         return $query;
     }
-    
 }

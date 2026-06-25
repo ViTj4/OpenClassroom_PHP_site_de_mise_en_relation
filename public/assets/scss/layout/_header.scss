@@ -85,6 +85,53 @@
     gap: 6px;
   }
 
+  &__account-menu {
+    position: relative;
+  }
+
+  &__account-trigger {
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    min-width: 132px;
+    padding-top: 10px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    display: none;
+    z-index: 10;
+  }
+
+  &__dropdown-link {
+    padding: 10px 12px;
+    border-radius: 6px;
+    display: block;
+    background-color: $color-white;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.06);
+    color: $color-text;
+    font-family: $font-family-text;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  &__dropdown-link:hover,
+  &__dropdown-link:focus {
+    text-decoration: underline;
+  }
+
+  &__account-menu:hover &__dropdown,
+  &__account-menu:focus-within &__dropdown {
+    display: block;
+  }
+
+  &__logout-mobile-item {
+    display: none;
+  }
+
   &__message-icon {
     width: 16px;
     height: 16px;
@@ -270,6 +317,18 @@
       align-items: flex-start;
       flex-direction: column;
       gap: 16px;
+    }
+
+    &__dropdown {
+      display: none;
+    }
+
+    &__account-menu {
+      display: none;
+    }
+
+    &__logout-mobile-item {
+      display: list-item;
     }
   }
 }

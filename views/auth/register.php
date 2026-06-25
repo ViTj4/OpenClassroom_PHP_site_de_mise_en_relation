@@ -3,7 +3,17 @@
     <div class="auth-page__form-inner">
       <h1 class="auth-page__title">Inscription</h1>
 
-      <form class="auth-page__form" action="#" method="post">
+      <?php if (!empty($errors)): ?>
+        <div class="auth-page__alert auth-page__alert--error" role="alert">
+          <?php foreach ($errors as $error): ?>
+            <p><?= htmlspecialchars($error) ?></p>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
+
+      <form class="auth-page__form" action="index.php?page=register" method="post">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
+
         <div class="auth-page__field">
           <label class="auth-page__label" for="register-username">Pseudo</label>
           <input
@@ -11,7 +21,9 @@
             id="register-username"
             name="username"
             type="text"
-            autocomplete="username">
+            value="<?= htmlspecialchars($formData['username'] ?? '') ?>"
+            autocomplete="username"
+            required>
         </div>
 
         <div class="auth-page__field">
@@ -21,7 +33,9 @@
             id="register-email"
             name="email"
             type="email"
-            autocomplete="email">
+            value="<?= htmlspecialchars($formData['email'] ?? '') ?>"
+            autocomplete="email"
+            required>
         </div>
 
         <div class="auth-page__field">
@@ -31,7 +45,8 @@
             id="register-password"
             name="password"
             type="password"
-            autocomplete="new-password">
+            autocomplete="new-password"
+            required>
         </div>
 
         <button class="auth-page__button" type="submit">

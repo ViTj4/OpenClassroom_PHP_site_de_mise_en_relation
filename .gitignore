@@ -1,1 +1,3 @@
-config/config.php
+.env
+var/sessions/*
+!var/sessions/.gitkeep
