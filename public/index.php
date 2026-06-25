@@ -13,6 +13,14 @@ $routes = [
     'title' => 'The Kinkfolk Table - Tom Troc',
     'view' => __DIR__ . '/../views/book/show.php',
   ],
+  'register' => [
+    'title' => 'Inscription - Tom Troc',
+    'view' => __DIR__ . '/../views/auth/register.php',
+  ],
+  'login' => [
+    'title' => 'Connexion - Tom Troc',
+    'view' => __DIR__ . '/../views/auth/login.php',
+  ],
 ];
 
 $route = $routes[$page] ?? $routes['home'];

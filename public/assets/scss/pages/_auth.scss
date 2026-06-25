@@ -1,0 +1,196 @@
+@use "../abstracts/variables" as *;
+
+.auth-page {
+  min-height: calc(100vh - $header-height - $footer-height);
+  display: grid;
+  grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+  background-color: $color-section-background;
+
+  &__form-panel {
+    min-height: 686px;
+    padding: 141px 0 80px;
+    background-color: $color-section-background;
+  }
+
+  &__form-inner {
+    width: 322px;
+    margin: 0 auto;
+  }
+
+  &__title {
+    margin: 0 0 48px;
+    font-family: $font-family-title;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+  }
+
+  &__form {
+    width: 322px;
+  }
+
+  &__field {
+    width: 322px;
+    min-height: 77px;
+    margin-bottom: 26px;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    display: block;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1;
+    color: #A6A6A6;
+  }
+
+  &__input {
+    width: 322px;
+    height: 50px;
+    padding: 0 14px;
+    border: 1px solid $color-separator;
+    border-radius: 6px;
+    display: block;
+    background-color: $color-white;
+    color: $color-text;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    outline: none;
+  }
+
+  &__input:focus {
+    border-color: $color-primary;
+  }
+
+  &__button {
+    width: 322px;
+    height: 63px;
+    margin-top: 1px;
+    padding: 22px 38px;
+    border: 0;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: $color-primary;
+    color: $color-white;
+    font-family: $font-family-text;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 160ms ease;
+  }
+
+  &__button:hover,
+  &__button:focus {
+    background-color: $color-primary-hover;
+  }
+
+  &__switch {
+    margin: 39px 0 0;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1;
+    color: $color-text;
+  }
+
+  &__switch-link {
+    font-weight: 400;
+    text-decoration: underline;
+  }
+
+  &__image-panel {
+    min-height: 886px;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 886px;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .auth-page {
+    grid-template-columns: minmax(0, 50%) minmax(0, 50%);
+
+    &__form-panel {
+      padding-right: $tablet-page-padding;
+      padding-left: $tablet-page-padding;
+    }
+
+    &__image-panel {
+      min-height: 686px;
+    }
+
+    &__image {
+      width: 100%;
+      height: 686px;
+      min-height: 686px;
+      object-position: center;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .auth-page {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+
+    &__form-panel {
+      min-height: auto;
+      padding: 58px $mobile-page-padding 56px;
+    }
+
+    &__form-inner,
+    &__form,
+    &__field,
+    &__input,
+    &__button {
+      width: 100%;
+    }
+
+    &__title {
+      margin-bottom: 42px;
+      font-size: 30px;
+    }
+
+    &__field {
+      min-height: 77px;
+      margin-bottom: 24px;
+    }
+
+    &__button {
+      height: 51px;
+      padding: 17px 38px;
+    }
+
+    &__switch {
+      margin-top: 28px;
+      font-size: 12px;
+    }
+
+    &__image-panel {
+      min-height: 462px;
+    }
+
+    &__image {
+      width: calc(100% + 0.44px);
+      height: 462px;
+      min-height: 0;
+      margin-left: -0.44px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}

@@ -2,6 +2,7 @@
   $currentPage = $page ?? 'home';
   $isHomeActive = $currentPage === 'home';
   $isBooksActive = in_array($currentPage, ['books', 'book'], true);
+  $isLoginActive = in_array($currentPage, ['login', 'register'], true);
 ?>
 
 <header class="header">
@@ -67,7 +68,10 @@
         </li>
 
         <li class="header__user-item">
-          <a class="header__user-link" href="index.php?page=login">
+          <a
+            class="header__user-link<?= $isLoginActive ? ' header__user-link--active' : '' ?>"
+            href="index.php?page=register"
+            <?= $isLoginActive ? 'aria-current="page"' : '' ?>>
             Connexion
           </a>
         </li>
