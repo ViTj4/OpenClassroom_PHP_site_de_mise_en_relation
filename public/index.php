@@ -10,9 +10,14 @@ $dbManager        = DBManager::getInstance();
 $userManager      = new UserManager($dbManager);
 $csrfTokenManager = new CsrfTokenManager();
 $passwordHasher   = new PasswordHasher();
+$profilePictureUploader = new ProfilePictureUploader(
+    dirname(__DIR__) . '/public/uploads/profile-pictures',
+    'uploads/profile-pictures'
+);
 
 $pageController = new PageController();
 $authController = new AuthController($userManager, $csrfTokenManager, $passwordHasher);
+$userController = new UserController($userManager, $csrfTokenManager, $passwordHasher, $profilePictureUploader);
 
 $routes = [
     'GET' => [
@@ -22,12 +27,15 @@ $routes = [
         'register' => [$authController, 'showRegister'],
         'login'    => [$authController, 'showLogin'],
         'logout'   => [$authController, 'logout'],
+        'account'  => [$userController, 'account'],
     ],
     'POST' => [
         'register' => [$authController, 'register'],
         'login'    => [$authController, 'login'],
+        'account'  => [$userController, 'updateAccount'],
+        'account-picture' => [$userController, 'updateProfilePicture'],
     ],
 ];
 
-$action = $routes[$method][$page] ?? $routes['GET']['home'];
+$action = $routes[$method][$page] ?? [$pageController, 'notFound'];
 $action();

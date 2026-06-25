@@ -20,6 +20,7 @@
 
   <script src="assets/js/mobile-menu.js" defer></script>
   <script src="assets/js/books-filter.js" defer></script>
+  <script src="assets/js/profile-picture-upload.js" defer></script>
 </body>
 
 </html>

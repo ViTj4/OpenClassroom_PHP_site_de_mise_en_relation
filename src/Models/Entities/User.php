@@ -9,7 +9,8 @@ class User
         private readonly string $password,
         private readonly ?string $profilePicture,
         private readonly string $userType,
-        private readonly string $registerDate
+        private readonly string $registerDate,
+        private readonly ?string $updatedAt
     ) {
     }
 
@@ -22,7 +23,8 @@ class User
             $data['password'],
             $data['profile_picture'],
             $data['user_type'],
-            $data['register_date']
+            $data['register_date'],
+            $data['updated_at'] ?? null
         );
     }
 
@@ -59,6 +61,11 @@ class User
     public function getRegisterDate(): string
     {
         return $this->registerDate;
+    }
+
+    public function getUpdatedAt(): ?string
+    {
+        return $this->updatedAt;
     }
 
     public function toSessionArray(): array

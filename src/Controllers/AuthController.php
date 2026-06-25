@@ -48,7 +48,7 @@ class AuthController extends AbstractController
         $password = $_POST['password'] ?? '';
         if ($password === '') {
             $formState->addError('Le mot de passe est obligatoire.');
-        } elseif (!$this->isPasswordStrongEnough($password)) {
+        } elseif (!$this->passwordHasher->isStrongEnough($password)) {
             $formState->addError('Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.');
         }
 
@@ -152,12 +152,4 @@ class AuthController extends AbstractController
         $this->redirect('home');
     }
 
-    private function isPasswordStrongEnough(string $password): bool
-    {
-        return strlen($password) >= 8
-            && preg_match('/[a-z]/', $password)
-            && preg_match('/[A-Z]/', $password)
-            && preg_match('/\d/', $password)
-            && preg_match('/[^a-zA-Z\d]/', $password);
-    }
 }

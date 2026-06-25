@@ -1,0 +1,89 @@
+@use "../abstracts/variables" as *;
+
+.error-page {
+  min-height: calc(100vh - $header-height - $footer-height);
+  background-color: $color-section-background;
+
+  &__inner {
+    width: min(520px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 96px 0 120px;
+    text-align: center;
+  }
+
+  &__heart {
+    width: 180px;
+    height: auto;
+    margin: 0 auto 42px;
+    display: block;
+  }
+
+  &__code {
+    margin: 0;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    color: $color-primary;
+  }
+
+  &__title {
+    margin: 18px 0 0;
+    font-family: $font-family-title;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+  }
+
+  &__text {
+    margin: 22px auto 0;
+    font-family: $font-family-text;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+    color: $color-text;
+  }
+
+  &__button {
+    width: 190px;
+    height: 51px;
+    margin-top: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-primary;
+    color: $color-white;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+  }
+
+  &__button:hover,
+  &__button:focus {
+    background-color: $color-primary-hover;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .error-page {
+    min-height: calc(100vh - $mobile-header-height - $mobile-footer-height);
+
+    &__inner {
+      padding: 72px 0 90px;
+    }
+
+    &__heart {
+      width: 140px;
+      margin-bottom: 34px;
+    }
+
+    &__title {
+      font-size: 30px;
+    }
+  }
+}

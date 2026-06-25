@@ -3,6 +3,7 @@
   $isHomeActive = $currentPage === 'home';
   $isBooksActive = in_array($currentPage, ['books', 'book'], true);
   $isLoginActive = in_array($currentPage, ['login', 'register'], true);
+  $isAccountActive = $currentPage === 'account';
   $connectedUser = $_SESSION['user'] ?? null;
 ?>
 
@@ -58,7 +59,10 @@
         </li>
 
         <li class="header__user-item">
-          <a class="header__user-link" href="index.php?page=account">
+          <a
+            class="header__user-link<?= $isAccountActive ? ' header__user-link--active' : '' ?>"
+            href="index.php?page=account"
+            <?= $isAccountActive ? 'aria-current="page"' : '' ?>>
             <img
               class="header__account-icon"
               src="assets/svg/myAccountLogo.svg"

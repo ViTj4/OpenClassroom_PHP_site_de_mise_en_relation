@@ -45,6 +45,21 @@ class UserManager
         return $user ? User::fromArray($user) : null;
     }
 
+    public function findByEmailExceptUuid(string $email, string $uuid): ?User
+    {
+        $query = $this->dbManager->query(
+            'SELECT * FROM users WHERE email = :email AND uuid <> :uuid LIMIT 1',
+            [
+                'email' => strtolower($email),
+                'uuid' => $uuid,
+            ]
+        );
+
+        $user = $query->fetch();
+
+        return $user ? User::fromArray($user) : null;
+    }
+
     public function findByUuid(string $uuid): ?User
     {
         $query = $this->dbManager->query(
@@ -60,10 +75,51 @@ class UserManager
     public function updatePasswordHash(string $uuid, string $passwordHash): void
     {
         $this->dbManager->query(
-            'UPDATE users SET password = :password WHERE uuid = :uuid',
+            'UPDATE users SET password = :password, updated_at = NOW() WHERE uuid = :uuid',
             [
                 'uuid' => $uuid,
                 'password' => $passwordHash,
+            ]
+        );
+    }
+
+    public function updateProfile(string $uuid, string $pseudo, string $email, ?string $passwordHash = null): void
+    {
+        if ($passwordHash !== null) {
+            $this->dbManager->query(
+                'UPDATE users
+                 SET pseudo = :pseudo, email = :email, password = :password, updated_at = NOW()
+                 WHERE uuid = :uuid',
+                [
+                    'uuid' => $uuid,
+                    'pseudo' => $pseudo,
+                    'email' => strtolower($email),
+                    'password' => $passwordHash,
+                ]
+            );
+
+            return;
+        }
+
+        $this->dbManager->query(
+            'UPDATE users
+             SET pseudo = :pseudo, email = :email, updated_at = NOW()
+             WHERE uuid = :uuid',
+            [
+                'uuid' => $uuid,
+                'pseudo' => $pseudo,
+                'email' => strtolower($email),
+            ]
+        );
+    }
+
+    public function updateProfilePicture(string $uuid, string $profilePicture): void
+    {
+        $this->dbManager->query(
+            'UPDATE users SET profile_picture = :profile_picture, updated_at = NOW() WHERE uuid = :uuid',
+            [
+                'uuid' => $uuid,
+                'profile_picture' => $profilePicture,
             ]
         );
     }

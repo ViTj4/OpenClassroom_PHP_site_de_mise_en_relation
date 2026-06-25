@@ -20,4 +20,13 @@ class PasswordHasher
     {
         return defined('PASSWORD_ARGON2ID') && password_needs_rehash($hash, PASSWORD_ARGON2ID);
     }
+
+    public function isStrongEnough(string $password): bool
+    {
+        return strlen($password) >= 8
+            && preg_match('/[a-z]/', $password)
+            && preg_match('/[A-Z]/', $password)
+            && preg_match('/\d/', $password)
+            && preg_match('/[^a-zA-Z\d]/', $password);
+    }
 }

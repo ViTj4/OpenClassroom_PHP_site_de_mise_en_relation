@@ -16,4 +16,10 @@ class PageController extends AbstractController
     {
         $this->render('views/book/show.php', 'The Kinkfolk Table - Tom Troc', 'book');
     }
+
+    public function notFound(): void
+    {
+        http_response_code(404);
+        $this->render('views/errors/404.php', 'Page introuvable - Tom Troc', '404');
+    }
 }

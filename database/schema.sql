@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
   profile_picture VARCHAR(255) DEFAULT NULL,
   user_type ENUM('user', 'admin') NOT NULL DEFAULT 'user',
   register_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT NULL,
   PRIMARY KEY (uuid),
   UNIQUE KEY users_email_unique (email),
   KEY users_pseudo_index (pseudo)
