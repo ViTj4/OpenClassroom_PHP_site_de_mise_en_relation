@@ -7,7 +7,7 @@
         <div class="account-card__profile-content">
           <img
             class="account-card__avatar"
-            src="<?= htmlspecialchars($user->getProfilePicture() ?? 'assets/images/Alexlecture.png') ?>"
+            src="<?= htmlspecialchars($user->getProfilePicture()) ?>"
             alt="">
 
           <form

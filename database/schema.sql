@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
   pseudo VARCHAR(80) NOT NULL,
   email VARCHAR(190) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  profile_picture VARCHAR(255) DEFAULT NULL,
+  profile_picture VARCHAR(255) NOT NULL DEFAULT 'assets/images/Alexlecture.png',
   user_type ENUM('user', 'admin') NOT NULL DEFAULT 'user',
   register_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT NULL,

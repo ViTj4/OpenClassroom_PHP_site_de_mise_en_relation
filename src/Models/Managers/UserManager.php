@@ -2,6 +2,8 @@
 
 class UserManager
 {
+    public const DEFAULT_PROFILE_PICTURE = 'assets/images/Alexlecture.png';
+
     public function __construct(
         private readonly DBManager $dbManager
     ) {
@@ -19,7 +21,7 @@ class UserManager
                 'pseudo' => $pseudo,
                 'email' => strtolower($email),
                 'password' => $passwordHash,
-                'profile_picture' => null,
+                'profile_picture' => self::DEFAULT_PROFILE_PICTURE,
                 'user_type' => 'user',
             ]
         );
