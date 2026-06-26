@@ -6,6 +6,7 @@
   $isAccountActive = $currentPage === 'account';
   $connectedUser = $_SESSION['user'] ?? null;
   $connectedUserPicture = $connectedUser['profilePicture'] ?? UserManager::DEFAULT_PROFILE_PICTURE;
+  $connectedUserPseudo = $connectedUser['pseudo'] ?? 'lecteur';
 ?>
 
 <header class="header">
@@ -85,7 +86,7 @@
 
               <div class="header__dropdown" aria-label="Menu utilisateur">
                 <p class="header__dropdown-title">
-                  Bonjour <?= htmlspecialchars($connectedUser['pseudo']) ?>
+                  Bonjour <?= htmlspecialchars($connectedUserPseudo) ?>
                 </p>
                 <a class="header__dropdown-link" href="index.php?page=logout">
                   Se déconnecter

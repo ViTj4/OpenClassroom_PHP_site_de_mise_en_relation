@@ -4,6 +4,7 @@ class UserController extends AbstractController
 {
     public function __construct(
         private readonly UserManager $userManager,
+        private readonly BookManager $bookManager,
         private readonly CsrfTokenManager $csrfTokenManager,
         private readonly PasswordHasher $passwordHasher,
         private readonly ProfilePictureUploader $profilePictureUploader
@@ -33,7 +34,8 @@ class UserController extends AbstractController
                 'formData' => $formState->getValues(),
                 'successMessage' => $successMessage,
                 'csrfToken' => $this->csrfTokenManager->getToken(),
-                'booksCount' => 0,
+                'booksCount' => $this->bookManager->countByOwnerUuid($user->getUuid()),
+                'books' => $this->bookManager->findByOwnerUuid($user->getUuid()),
                 'memberSince' => $this->getMemberSinceLabel($user),
             ]
         );

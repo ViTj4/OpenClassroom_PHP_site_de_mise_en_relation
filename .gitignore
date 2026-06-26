@@ -3,3 +3,5 @@ var/sessions/*
 !var/sessions/.gitkeep
 public/uploads/profile-pictures/*
 !public/uploads/profile-pictures/.gitkeep
+public/uploads/books/*
+!public/uploads/books/.gitkeep

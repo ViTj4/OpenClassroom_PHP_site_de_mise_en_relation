@@ -36,39 +36,6 @@
   </div>
 </section>
 
-<?php
-  $latestBooks = [
-    [
-      'title' => 'Esther',
-      'author' => 'Alabaster',
-      'seller' => 'CamilleClubLit',
-      'image' => 'assets/images/Esther_Alabaster.png',
-      'alt' => 'Livre Esther pose devant un tissu vert',
-    ],
-    [
-      'title' => 'The Kinfolk Table',
-      'author' => 'Nathan Williams',
-      'seller' => 'Nathalire',
-      'image' => 'assets/images/Nathan_Williams.png',
-      'alt' => 'Livre The Kinfolk Table pose avec des fleurs',
-    ],
-    [
-      'title' => 'Wabi Sabi',
-      'author' => 'Beth Kempton',
-      'seller' => 'Alexlecture',
-      'image' => 'assets/images/Wabi_Sabi.png',
-      'alt' => 'Livre Wabi Sabi pose sur une table',
-    ],
-    [
-      'title' => 'Milk & honey',
-      'author' => 'Rupi Kaur',
-      'seller' => 'Hugo1990_12',
-      'image' => 'assets/images/Milk_and_Honey.png',
-      'alt' => 'Livre Milk and honey pose sur une table ronde',
-    ],
-  ];
-?>
-
 <section class="latest-books" aria-labelledby="latest-books-title">
   <div class="latest-books__inner">
     <h2 class="latest-books__title" id="latest-books-title">
@@ -77,23 +44,23 @@
 
     <div class="latest-books__grid">
       <?php foreach ($latestBooks as $book) : ?>
-        <a class="latest-books__card" href="index.php?page=book">
+        <a class="latest-books__card" href="index.php?page=book&amp;uuid=<?= htmlspecialchars($book->getUuid()) ?>">
           <img
             class="latest-books__image"
-            src="<?= htmlspecialchars($book['image']) ?>"
-            alt="<?= htmlspecialchars($book['alt']) ?>">
+            src="<?= htmlspecialchars($book->getImage()) ?>"
+            alt="<?= htmlspecialchars($book->getAltText()) ?>">
 
           <span class="latest-books__body">
             <span class="latest-books__book-title">
-              <?= htmlspecialchars($book['title']) ?>
+              <?= htmlspecialchars($book->getTitle()) ?>
             </span>
 
             <span class="latest-books__author">
-              <?= htmlspecialchars($book['author']) ?>
+              <?= htmlspecialchars($book->getAuthor()) ?>
             </span>
 
             <span class="latest-books__seller">
-              Vendu par : <?= htmlspecialchars($book['seller']) ?>
+              Vendu par : <?= htmlspecialchars($book->getOwnerPseudo()) ?>
             </span>
           </span>
         </a>

@@ -122,5 +122,84 @@
         </form>
       </article>
     </div>
+
+    <section class="account-books" aria-labelledby="account-books-title">
+      <div class="account-books__header">
+        <h2 class="account-books__title" id="account-books-title">
+          Ma bibliothèque
+        </h2>
+
+        <a class="account-books__add-link" href="index.php?page=book-create">
+          Ajouter un livre
+        </a>
+      </div>
+
+      <div class="account-books__table-wrapper">
+        <table class="account-books__table">
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Titre</th>
+              <th scope="col">Auteur</th>
+              <th scope="col">Description</th>
+              <th scope="col">Disponibilité</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <?php if (empty($books)): ?>
+              <tr>
+                <td class="account-books__empty" colspan="6">
+                  Vous n'avez pas encore ajouté de livre.
+                </td>
+              </tr>
+            <?php endif; ?>
+
+            <?php foreach ($books as $book): ?>
+              <?php
+                $description = $book->getDescription();
+                $descriptionExcerpt = strlen($description) > 94
+                    ? substr($description, 0, 94) . '...'
+                    : $description;
+              ?>
+
+              <tr>
+                <td>
+                  <img
+                    class="account-books__image"
+                    src="<?= htmlspecialchars($book->getImage()) ?>"
+                    alt="<?= htmlspecialchars($book->getAltText()) ?>">
+                </td>
+
+                <td><?= htmlspecialchars($book->getTitle()) ?></td>
+                <td><?= htmlspecialchars($book->getAuthor()) ?></td>
+                <td>
+                  <p class="account-books__description">
+                    <?= htmlspecialchars($descriptionExcerpt) ?>
+                  </p>
+                </td>
+                <td>
+                  <span class="account-books__status account-books__status--<?= htmlspecialchars($book->getStatusCssModifier()) ?>">
+                    <?= htmlspecialchars($book->getStatusLabel()) ?>
+                  </span>
+                </td>
+                <td>
+                  <div class="account-books__actions">
+                    <a class="account-books__edit-link" href="index.php?page=book-edit&amp;uuid=<?= htmlspecialchars($book->getUuid()) ?>">
+                      Éditer
+                    </a>
+
+                    <a class="account-books__delete-link" href="index.php?page=book-delete&amp;uuid=<?= htmlspecialchars($book->getUuid()) ?>">
+                      Supprimer
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 </section>
