@@ -75,6 +75,7 @@ class User
             'pseudo' => $this->pseudo,
             'email' => $this->email,
             'userType' => $this->userType,
+            'profilePicture' => $this->profilePicture,
         ];
     }
 }

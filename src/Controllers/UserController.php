@@ -141,6 +141,12 @@ class UserController extends AbstractController
             return;
         }
 
+        $updatedUser = $this->userManager->findByUuid($user->getUuid());
+
+        if ($updatedUser !== null) {
+            $_SESSION['user'] = $updatedUser->toSessionArray();
+        }
+
         $this->account(null, 'Votre photo de profil a bien été mise à jour.');
     }
 

@@ -5,6 +5,7 @@
   $isLoginActive = in_array($currentPage, ['login', 'register'], true);
   $isAccountActive = $currentPage === 'account';
   $connectedUser = $_SESSION['user'] ?? null;
+  $connectedUserPicture = $connectedUser['profilePicture'] ?? UserManager::DEFAULT_PROFILE_PICTURE;
 ?>
 
 <header class="header">
@@ -75,11 +76,17 @@
         <li class="header__user-item">
           <?php if ($connectedUser !== null): ?>
             <div class="header__account-menu">
-              <a class="header__user-link header__user-link--active header__account-trigger" href="index.php?page=account">
-                Bonjour <?= htmlspecialchars($connectedUser['pseudo']) ?>
+              <a class="header__account-trigger" href="index.php?page=account" aria-label="Ouvrir le menu utilisateur">
+                <img
+                  class="header__profile-picture"
+                  src="<?= htmlspecialchars($connectedUserPicture) ?>"
+                  alt="">
               </a>
 
               <div class="header__dropdown" aria-label="Menu utilisateur">
+                <p class="header__dropdown-title">
+                  Bonjour <?= htmlspecialchars($connectedUser['pseudo']) ?>
+                </p>
                 <a class="header__dropdown-link" href="index.php?page=logout">
                   Se déconnecter
                 </a>
