@@ -3,20 +3,6 @@
     <div class="auth-page__form-inner">
       <h1 class="auth-page__title">Connexion</h1>
 
-      <?php if (!empty($successMessage)): ?>
-        <div class="auth-page__alert auth-page__alert--success" role="status">
-          <p><?= htmlspecialchars($successMessage) ?></p>
-        </div>
-      <?php endif; ?>
-
-      <?php if (!empty($errors)): ?>
-        <div class="auth-page__alert auth-page__alert--error" role="alert">
-          <?php foreach ($errors as $error): ?>
-            <p><?= htmlspecialchars($error) ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
       <form class="auth-page__form" action="index.php?page=login" method="post">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
@@ -29,6 +15,7 @@
             type="email"
             value="<?= htmlspecialchars($formData['email'] ?? '') ?>"
             autocomplete="email"
+            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
             required>
         </div>
 

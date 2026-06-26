@@ -11,14 +11,6 @@
     <form class="book-form" action="index.php?page=book-create" method="post" enctype="multipart/form-data">
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
-      <?php if (!empty($errors)): ?>
-        <div class="book-form__alert" role="alert">
-          <?php foreach ($errors as $error): ?>
-            <p><?= htmlspecialchars($error) ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
       <div class="book-form__field">
         <label class="book-form__label" for="book-title">Titre</label>
         <input
@@ -27,6 +19,7 @@
           name="title"
           type="text"
           value="<?= htmlspecialchars($formData['title'] ?? '') ?>"
+          maxlength="<?= FormValidator::BOOK_TITLE_MAX_LENGTH ?>"
           required>
       </div>
 
@@ -38,6 +31,7 @@
           name="author"
           type="text"
           value="<?= htmlspecialchars($formData['author'] ?? '') ?>"
+          maxlength="<?= FormValidator::BOOK_AUTHOR_MAX_LENGTH ?>"
           required>
       </div>
 
@@ -69,6 +63,7 @@
           class="book-form__textarea"
           id="book-description"
           name="description"
+          maxlength="<?= FormValidator::BOOK_DESCRIPTION_MAX_LENGTH ?>"
           required><?= htmlspecialchars($formData['description'] ?? '') ?></textarea>
       </div>
 

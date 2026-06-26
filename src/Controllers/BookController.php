@@ -180,14 +180,20 @@ class BookController extends AbstractController
 
         if ($formState->getValue('title') === '') {
             $formState->addError('Le titre du livre est obligatoire.');
+        } elseif (!FormValidator::hasMaxLength($formState->getValue('title'), FormValidator::BOOK_TITLE_MAX_LENGTH)) {
+            $formState->addError('Le titre du livre ne doit pas dépasser 190 caractères.');
         }
 
         if ($formState->getValue('author') === '') {
             $formState->addError('L\'auteur du livre est obligatoire.');
+        } elseif (!FormValidator::hasMaxLength($formState->getValue('author'), FormValidator::BOOK_AUTHOR_MAX_LENGTH)) {
+            $formState->addError('L\'auteur du livre ne doit pas dépasser 190 caractères.');
         }
 
         if ($formState->getValue('description') === '') {
             $formState->addError('La description du livre est obligatoire.');
+        } elseif (!FormValidator::hasMaxLength($formState->getValue('description'), FormValidator::BOOK_DESCRIPTION_MAX_LENGTH)) {
+            $formState->addError('La description du livre ne doit pas dépasser 2000 caractères.');
         }
 
         if (!in_array($this->getNormalizedStatus($formState), ['available', 'reserved', 'exchanged', 'removed'], true)) {

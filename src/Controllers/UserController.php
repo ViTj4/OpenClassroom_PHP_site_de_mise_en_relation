@@ -57,14 +57,14 @@ class UserController extends AbstractController
 
         if ($formState->getValue('email') === '') {
             $formState->addError('L\'adresse email est obligatoire.');
-        } elseif (!filter_var($formState->getValue('email'), FILTER_VALIDATE_EMAIL)) {
+        } elseif (!FormValidator::isValidEmail($formState->getValue('email'))) {
             $formState->addError('L\'adresse email n\'est pas valide.');
         }
 
         if ($formState->getValue('pseudo') === '') {
             $formState->addError('Le pseudo est obligatoire.');
-        } elseif (strlen($formState->getValue('pseudo')) < 2 || strlen($formState->getValue('pseudo')) > 80) {
-            $formState->addError('Le pseudo doit contenir entre 2 et 80 caractères.');
+        } elseif (!FormValidator::isValidPseudo($formState->getValue('pseudo'))) {
+            $formState->addError('Le pseudo doit contenir entre 2 et 30 caractères, sans espace ni caractère spécial autre que - ou _.');
         }
 
         $password = $_POST['password'] ?? '';

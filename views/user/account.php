@@ -64,20 +64,6 @@
           Vos informations personnelles
         </h2>
 
-        <?php if (!empty($successMessage)): ?>
-          <div class="account-card__alert account-card__alert--success" role="status">
-            <p><?= htmlspecialchars($successMessage) ?></p>
-          </div>
-        <?php endif; ?>
-
-        <?php if (!empty($errors)): ?>
-          <div class="account-card__alert account-card__alert--error" role="alert">
-            <?php foreach ($errors as $error): ?>
-              <p><?= htmlspecialchars($error) ?></p>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-
         <form class="account-card__form" action="index.php?page=account" method="post">
           <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
@@ -90,6 +76,7 @@
               type="email"
               value="<?= htmlspecialchars($formData['email'] ?? '') ?>"
               autocomplete="email"
+              pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
               required>
           </div>
 
@@ -101,6 +88,9 @@
               name="password"
               type="password"
               placeholder="••••••••"
+              minlength="8"
+              pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}"
+              title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial."
               autocomplete="new-password">
           </div>
 
@@ -113,6 +103,9 @@
               type="text"
               value="<?= htmlspecialchars($formData['pseudo'] ?? '') ?>"
               autocomplete="username"
+              minlength="2"
+              maxlength="<?= FormValidator::PSEUDO_MAX_LENGTH ?>"
+              pattern="[A-Za-z0-9_-]{2,30}"
               required>
           </div>
 

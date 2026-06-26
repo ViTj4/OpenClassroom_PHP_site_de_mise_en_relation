@@ -12,14 +12,6 @@
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
       <input type="hidden" name="uuid" value="<?= htmlspecialchars($book->getUuid()) ?>">
 
-      <?php if (!empty($errors)): ?>
-        <div class="book-edit__alert" role="alert">
-          <?php foreach ($errors as $error): ?>
-            <p><?= htmlspecialchars($error) ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
       <div class="book-edit__picture-column">
         <p class="book-edit__label book-edit__label--static">Photo</p>
 
@@ -51,6 +43,7 @@
             name="title"
             type="text"
             value="<?= htmlspecialchars($formData['title'] ?? '') ?>"
+            maxlength="<?= FormValidator::BOOK_TITLE_MAX_LENGTH ?>"
             required>
         </div>
 
@@ -62,6 +55,7 @@
             name="author"
             type="text"
             value="<?= htmlspecialchars($formData['author'] ?? '') ?>"
+            maxlength="<?= FormValidator::BOOK_AUTHOR_MAX_LENGTH ?>"
             required>
         </div>
 
@@ -71,6 +65,7 @@
             class="book-edit__textarea"
             id="book-description"
             name="description"
+            maxlength="<?= FormValidator::BOOK_DESCRIPTION_MAX_LENGTH ?>"
             required><?= htmlspecialchars($formData['description'] ?? '') ?></textarea>
         </div>
 

@@ -2,6 +2,7 @@
 @use "base/global";
 @use "layout/header";
 @use "layout/footer";
+@use "components/toasts";
 @use "pages/home";
 @use "pages/books";
 @use "pages/book-show";
