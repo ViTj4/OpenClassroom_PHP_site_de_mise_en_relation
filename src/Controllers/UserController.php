@@ -16,7 +16,7 @@ class UserController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour accéder à votre compte.');
         }
 
         $formState ??= new FormState([
@@ -46,7 +46,7 @@ class UserController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour modifier votre compte.');
         }
 
         $formState = FormState::fromArray($_POST, ['email', 'pseudo']);
@@ -104,7 +104,7 @@ class UserController extends AbstractController
             $_SESSION['user'] = $updatedUser->toSessionArray();
         }
 
-        $this->account(null, 'Vos informations ont bien été mises à jour.');
+        $this->redirect('account', 'Vos informations ont bien été mises à jour.');
     }
 
     public function updateProfilePicture(): void
@@ -112,7 +112,7 @@ class UserController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour modifier votre photo de profil.');
         }
 
         if (!$this->csrfTokenManager->isValid($_POST['csrf_token'] ?? null)) {
@@ -149,7 +149,7 @@ class UserController extends AbstractController
             $_SESSION['user'] = $updatedUser->toSessionArray();
         }
 
-        $this->account(null, 'Votre photo de profil a bien été mise à jour.');
+        $this->redirect('account', 'Votre photo de profil a bien été mise à jour.');
     }
 
     private function getAuthenticatedUser(): ?User

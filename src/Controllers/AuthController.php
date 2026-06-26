@@ -75,15 +75,12 @@ class AuthController extends AbstractController
             return;
         }
 
-        $_SESSION['flash_success'] = 'Votre compte a bien été créé. Vous pouvez maintenant vous connecter.';
-        $this->redirect('login');
+        $this->redirect('login', 'Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');
     }
 
     public function showLogin(?FormState $formState = null): void
     {
         $formState ??= new FormState();
-        $successMessage = $_SESSION['flash_success'] ?? null;
-        unset($_SESSION['flash_success']);
 
         $this->render(
             'views/auth/login.php',
@@ -92,7 +89,6 @@ class AuthController extends AbstractController
             [
                 'errors'         => $formState->getErrors(),
                 'formData'       => $formState->getValues(),
-                'successMessage' => $successMessage,
                 'csrfToken'      => $this->csrfTokenManager->getToken(),
             ]
         );
@@ -143,7 +139,7 @@ class AuthController extends AbstractController
         session_regenerate_id(true);
         $_SESSION['user'] = $user->toSessionArray();
 
-        $this->redirect('home');
+        $this->redirect('home', 'Vous êtes maintenant connecté.');
     }
 
     public function logout(): void
@@ -151,7 +147,7 @@ class AuthController extends AbstractController
         unset($_SESSION['user']);
         session_regenerate_id(true);
 
-        $this->redirect('home');
+        $this->redirect('home', 'Vous êtes bien déconnecté.');
     }
 
 }

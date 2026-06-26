@@ -13,7 +13,7 @@ class BookController extends AbstractController
     public function showCreate(?FormState $formState = null): void
     {
         if ($this->getAuthenticatedUser() === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour ajouter un livre.');
         }
 
         $formState ??= new FormState([
@@ -35,7 +35,7 @@ class BookController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour ajouter un livre.');
         }
 
         $formState = FormState::fromArray($_POST, ['title', 'author', 'description']);
@@ -73,7 +73,7 @@ class BookController extends AbstractController
             return;
         }
 
-        $this->redirect('account');
+        $this->redirect('account', 'Le livre a bien été ajouté à votre bibliothèque.');
     }
 
     public function showEdit(?FormState $formState = null): void
@@ -81,13 +81,13 @@ class BookController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour modifier un livre.');
         }
 
         $book = $this->getOwnedBook($user);
 
         if ($book === null) {
-            $this->redirect('account');
+            $this->redirect('account', null, 'Ce livre est introuvable ou ne vous appartient pas.');
         }
 
         $formState ??= new FormState([
@@ -111,13 +111,13 @@ class BookController extends AbstractController
         $user = $this->getAuthenticatedUser();
 
         if ($user === null) {
-            $this->redirect('login');
+            $this->redirect('login', null, 'Veuillez vous connecter pour modifier un livre.');
         }
 
         $book = $this->getOwnedBook($user);
 
         if ($book === null) {
-            $this->redirect('account');
+            $this->redirect('account', null, 'Ce livre est introuvable ou ne vous appartient pas.');
         }
 
         $formState = FormState::fromArray($_POST, ['title', 'author', 'description', 'status']);
@@ -149,7 +149,30 @@ class BookController extends AbstractController
             return;
         }
 
-        $this->redirect('account');
+        $this->redirect('account', 'Le livre a bien été modifié.');
+    }
+
+    public function delete(): void
+    {
+        $user = $this->getAuthenticatedUser();
+
+        if ($user === null) {
+            $this->redirect('login', null, 'Veuillez vous connecter pour supprimer un livre.');
+        }
+
+        $book = $this->getOwnedBook($user);
+
+        if ($book === null) {
+            $this->redirect('account', null, 'Ce livre est introuvable ou ne vous appartient pas.');
+        }
+
+        try {
+            $this->bookManager->delete($book->getUuid(), $user->getUuid());
+        } catch (Throwable) {
+            $this->redirect('account', null, 'Impossible de supprimer le livre pour le moment.');
+        }
+
+        $this->redirect('account', 'Le livre a bien été supprimé.');
     }
 
     private function getAuthenticatedUser(): ?User

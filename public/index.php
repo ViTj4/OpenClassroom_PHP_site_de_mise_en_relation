@@ -36,6 +36,7 @@ $routes = [
         'account'     => [$userController, 'account'],
         'book-create' => [$bookController, 'showCreate'],
         'book-edit'   => [$bookController, 'showEdit'],
+        'book-delete' => [$bookController, 'delete'],
     ],
     'POST' => [
         'register'        => [$authController, 'register'],
