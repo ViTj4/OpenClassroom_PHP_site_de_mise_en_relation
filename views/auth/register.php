@@ -3,14 +3,6 @@
     <div class="auth-page__form-inner">
       <h1 class="auth-page__title">Inscription</h1>
 
-      <?php if (!empty($errors)): ?>
-        <div class="auth-page__alert auth-page__alert--error" role="alert">
-          <?php foreach ($errors as $error): ?>
-            <p><?= htmlspecialchars($error) ?></p>
-          <?php endforeach; ?>
-        </div>
-      <?php endif; ?>
-
       <form class="auth-page__form" action="index.php?page=register" method="post">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
 
@@ -23,6 +15,9 @@
             type="text"
             value="<?= htmlspecialchars($formData['username'] ?? '') ?>"
             autocomplete="username"
+            minlength="2"
+            maxlength="<?= FormValidator::PSEUDO_MAX_LENGTH ?>"
+            pattern="[A-Za-z0-9_-]{2,30}"
             required>
         </div>
 
@@ -35,6 +30,7 @@
             type="email"
             value="<?= htmlspecialchars($formData['email'] ?? '') ?>"
             autocomplete="email"
+            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
             required>
         </div>
 
@@ -46,6 +42,9 @@
             name="password"
             type="password"
             autocomplete="new-password"
+            minlength="8"
+            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}"
+            title="Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial."
             required>
         </div>
 
