@@ -23,7 +23,7 @@ class DBManager
     {
     }
 
-    /**
+      /**
      * Méthode qui permet de récupérer l'instance de la classe DBManager.
      * @return DBManager
      */
@@ -46,6 +46,7 @@ class DBManager
         $pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database . ';charset=utf8mb4', $user, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         return $pdo;
     }
@@ -61,19 +62,39 @@ class DBManager
 
     /**
      * Méthode qui permet d'exécuter une requête SQL.
-     * Si des paramètres sont passés, on utilise une requête préparée.
+     * Toutes les requêtes passent par une requête préparée.
      * @param string $sql       : la requête SQL à exécuter.
      * @param array|null $params: les paramètres de la requête SQL.
      * @return PDOStatement     : le résultat de la requête SQL.
      */
     public function query(string $sql, ?array $params = null): PDOStatement
     {
-        if ($params === null) {
-            $query = $this->db->query($sql);
-        } else {
-            $query = $this->db->prepare($sql);
-            $query->execute($params);
+        $query = $this->db->prepare($sql);
+
+        if ($query === false) {
+            throw new RuntimeException('Impossible de préparer la requête SQL.');
         }
+
+        foreach ($params ?? [] as $name => $value) {
+            $query->bindValue(
+                is_int($name) ? $name + 1 : ':' . ltrim((string) $name, ':'),
+                $value,
+                $this->getParameterType($value)
+            );
+        }
+
+        $query->execute();
+
         return $query;
+    }
+
+    private function getParameterType(mixed $value): int
+    {
+        return match (true) {
+            is_int($value)  => PDO::PARAM_INT,
+            is_bool($value) => PDO::PARAM_BOOL,
+            $value === null => PDO::PARAM_NULL,
+            default         => PDO::PARAM_STR,
+        };
     }
 }

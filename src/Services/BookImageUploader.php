@@ -30,7 +30,7 @@ class BookImageUploader
             throw new RuntimeException('L\'image ne doit pas dépasser 5 Mo.');
         }
 
-        $mimeType = mime_content_type($file['tmp_name']);
+        $mimeType = $this->detectMimeType($file['tmp_name'] ?? null);
 
         if (!isset(self::ALLOWED_MIME_TYPES[$mimeType])) {
             throw new RuntimeException('Le format de l\'image doit être JPG, PNG ou WebP.');
@@ -40,8 +40,8 @@ class BookImageUploader
             mkdir($this->uploadDirectory, 0775, true);
         }
 
-        $extension = self::ALLOWED_MIME_TYPES[$mimeType];
-        $fileName = $bookUuid . '-' . bin2hex(random_bytes(8)) . '.' . $extension;
+        $extension   = self::ALLOWED_MIME_TYPES[$mimeType];
+        $fileName    = $bookUuid . '-' . bin2hex(random_bytes(8)) . '.' . $extension;
         $destination = $this->uploadDirectory . '/' . $fileName;
 
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
@@ -51,6 +51,22 @@ class BookImageUploader
         $this->deletePreviousImage($currentImage);
 
         return $this->publicPath . '/' . $fileName;
+    }
+
+    private function detectMimeType(?string $temporaryPath): string
+    {
+        if ($temporaryPath === null || !is_file($temporaryPath)) {
+            throw new RuntimeException('Le fichier téléversé est invalide.');
+        }
+
+        $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $fileInfo->file($temporaryPath);
+
+        if ($mimeType === false) {
+            throw new RuntimeException('Impossible de vérifier le format de l\'image.');
+        }
+
+        return $mimeType;
     }
 
     private function deletePreviousImage(?string $currentImage): void
