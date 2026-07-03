@@ -44,7 +44,9 @@
         Propriétaire
       </h2>
 
-      <div class="book-detail__owner-card">
+      <a
+        class="book-detail__owner-card"
+        href="index.php?page=user&amp;uuid=<?= htmlspecialchars($book->getOwnerUuid()) ?>">
         <img
           class="book-detail__owner-image"
           src="<?= htmlspecialchars($book->getOwnerProfilePicture()) ?>"
@@ -53,7 +55,7 @@
         <span class="book-detail__owner-name">
           <?= htmlspecialchars($book->getOwnerPseudo()) ?>
         </span>
-      </div>
+      </a>
 
       <a class="book-detail__button" href="index.php?page=messages">
         Envoyer un message

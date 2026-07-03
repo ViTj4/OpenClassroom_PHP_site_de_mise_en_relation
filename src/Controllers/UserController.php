@@ -41,6 +41,32 @@ class UserController extends AbstractController
         );
     }
 
+    public function publicProfile(): void
+    {
+        $uuid = $_GET['uuid'] ?? null;
+        $user = is_string($uuid) && $uuid !== '' ? $this->userManager->findByUuid($uuid) : null;
+
+        if ($user === null) {
+            http_response_code(404);
+            $this->render('views/errors/404.php', 'Page introuvable - Tom Troc', '404');
+            return;
+        }
+
+        $books = $this->bookManager->findByOwnerUuid($user->getUuid());
+
+        $this->render(
+            'views/user/public.php',
+            $user->getPseudo() . ' - Tom Troc',
+            'user',
+            [
+                'profileUser' => $user,
+                'books' => $books,
+                'booksCount' => count($books),
+                'memberSince' => $this->getMemberSinceLabel($user),
+            ]
+        );
+    }
+
     public function updateAccount(): void
     {
         $user = $this->getAuthenticatedUser();

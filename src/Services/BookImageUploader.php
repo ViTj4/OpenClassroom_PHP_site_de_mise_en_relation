@@ -2,6 +2,7 @@
 
 class BookImageUploader
 {
+    // 5 MB in bytes maximum file size for uploaded images
     private const MAX_FILE_SIZE = 5242880;
 
     private const ALLOWED_MIME_TYPES = [
@@ -13,8 +14,7 @@ class BookImageUploader
     public function __construct(
         private readonly string $uploadDirectory,
         private readonly string $publicPath
-    ) {
-    }
+    ) {}
 
     public function upload(array $file, string $bookUuid, ?string $currentImage = null): string
     {
@@ -58,7 +58,7 @@ class BookImageUploader
         if ($temporaryPath === null || !is_file($temporaryPath)) {
             throw new RuntimeException('Le fichier téléversé est invalide.');
         }
-
+        // check the MIME type of the uploaded file using the finfo class
         $fileInfo = new finfo(FILEINFO_MIME_TYPE);
         $mimeType = $fileInfo->file($temporaryPath);
 

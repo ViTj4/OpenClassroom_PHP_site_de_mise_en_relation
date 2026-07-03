@@ -34,6 +34,7 @@ $routes = [
         'login'       => [$authController, 'showLogin'],
         'logout'      => [$authController, 'logout'],
         'account'     => [$userController, 'account'],
+        'user'        => [$userController, 'publicProfile'],
         'book-create' => [$bookController, 'showCreate'],
         'book-edit'   => [$bookController, 'showEdit'],
         'book-delete' => [$bookController, 'delete'],

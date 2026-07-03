@@ -122,6 +122,14 @@
     align-items: center;
     gap: 12px;
     background-color: $color-white;
+    text-decoration: none;
+    transition: box-shadow 160ms ease, transform 160ms ease;
+  }
+
+  &__owner-card:hover,
+  &__owner-card:focus {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
   }
 
   &__owner-image {
