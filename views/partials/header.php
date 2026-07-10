@@ -2,6 +2,7 @@
   $currentPage = $page ?? 'home';
   $isHomeActive = $currentPage === 'home';
   $isBooksActive = in_array($currentPage, ['books', 'book'], true);
+  $isMessagesActive = $currentPage === 'messages';
   $isLoginActive = in_array($currentPage, ['login', 'register'], true);
   $isAccountActive = $currentPage === 'account';
   $connectedUser = $_SESSION['user'] ?? null;
@@ -48,31 +49,38 @@
 
     <nav class="header__user-nav" id="header-user-navigation" aria-label="Navigation utilisateur">
       <ul class="header__user-list">
-        <li class="header__user-item">
-          <a class="header__user-link" href="index.php?page=messages">
-            <img
-              class="header__message-icon"
-              src="assets/svg/messageIcon.svg"
-              alt=""
-              aria-hidden="true">
-            <span>Messagerie</span>
-            <span class="header__message-count">1</span>
-          </a>
-        </li>
+        <?php if ($connectedUser !== null): ?>
+          <li class="header__user-item">
+            <a
+              class="header__user-link<?= $isMessagesActive ? ' header__user-link--active' : '' ?>"
+              href="index.php?page=messages"
+              <?= $isMessagesActive ? 'aria-current="page"' : '' ?>>
+              <img
+                class="header__message-icon"
+                src="assets/svg/messageIcon.svg"
+                alt=""
+                aria-hidden="true">
+              <span>Messagerie</span>
+              <span class="header__message-count">1</span>
+            </a>
+          </li>
+        <?php endif; ?>
 
-        <li class="header__user-item">
-          <a
-            class="header__user-link<?= $isAccountActive ? ' header__user-link--active' : '' ?>"
-            href="index.php?page=account"
-            <?= $isAccountActive ? 'aria-current="page"' : '' ?>>
-            <img
-              class="header__account-icon"
-              src="assets/svg/myAccountLogo.svg"
-              alt=""
-              aria-hidden="true">
-            <span>Mon compte</span>
-          </a>
-        </li>
+        <?php if ($connectedUser !== null): ?>
+          <li class="header__user-item">
+            <a
+              class="header__user-link<?= $isAccountActive ? ' header__user-link--active' : '' ?>"
+              href="index.php?page=account"
+              <?= $isAccountActive ? 'aria-current="page"' : '' ?>>
+              <img
+                class="header__account-icon"
+                src="assets/svg/myAccountLogo.svg"
+                alt=""
+                aria-hidden="true">
+              <span>Mon compte</span>
+            </a>
+          </li>
+        <?php endif; ?>
 
         <li class="header__user-item">
           <?php if ($connectedUser !== null): ?>

@@ -102,6 +102,7 @@
     height: 324px;
     display: flex;
     overflow: hidden;
+    position: relative;
     flex-direction: column;
     border-radius: 0 0 10px 10px;
     background-color: $color-white;
@@ -112,6 +113,39 @@
 
   &__card[hidden] {
     display: none;
+  }
+
+  &__status {
+    min-width: 86px;
+    height: 29px;
+    padding: 0 14px;
+    border-radius: 999px;
+    position: absolute;
+    top: 14px;
+    right: 13px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  &__status--reserved,
+  &__status--unavailable {
+    background-color: #C56D6D;
+  }
+
+  &__status--exchanged {
+    background-color: #8A8F98;
+  }
+
+  &__status--removed {
+    background-color: #292929;
   }
 
   &__image {
@@ -223,6 +257,15 @@
       height: auto;
       border-radius: 0 0 8px 8px;
       box-shadow: 0 3.2px 19.2px 0 #00000003;
+    }
+
+    &__status {
+      min-width: 70px;
+      height: 23px;
+      padding: 0 10px;
+      top: 9px;
+      right: 8px;
+      font-size: 10px;
     }
 
     &__image {

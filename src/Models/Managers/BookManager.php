@@ -18,9 +18,12 @@ class BookManager
             'SELECT books.*, users.pseudo AS owner_pseudo, users.profile_picture AS owner_profile_picture
              FROM books
              INNER JOIN users ON users.uuid = books.owner_uuid
-             WHERE books.status <> :removed
+             WHERE books.status IN (:available, :reserved)
              ORDER BY books.created_at DESC',
-            ['removed' => 'removed']
+            [
+                'available' => 'available',
+                'reserved' => 'reserved',
+            ]
         );
 
         return array_map(
@@ -38,10 +41,13 @@ class BookManager
             'SELECT books.*, users.pseudo AS owner_pseudo, users.profile_picture AS owner_profile_picture
              FROM books
              INNER JOIN users ON users.uuid = books.owner_uuid
-             WHERE books.status <> :removed
+             WHERE books.status IN (:available, :reserved)
              ORDER BY books.created_at DESC
              LIMIT ' . max(1, $limit),
-            ['removed' => 'removed']
+            [
+                'available' => 'available',
+                'reserved' => 'reserved',
+            ]
         );
 
         return array_map(

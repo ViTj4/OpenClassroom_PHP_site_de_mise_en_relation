@@ -29,7 +29,9 @@
         <span><?= (int) $booksCount ?> livre<?= $booksCount > 1 ? 's' : '' ?></span>
       </p>
 
-      <a class="public-user__message-button" href="index.php?page=messages">
+      <a
+        class="public-user__message-button"
+        href="index.php?page=message-start&amp;recipient=<?= htmlspecialchars($profileUser->getUuid()) ?>">
         Écrire un message
       </a>
     </article>

@@ -34,6 +34,12 @@
           href="index.php?page=book&amp;uuid=<?= htmlspecialchars($book->getUuid()) ?>"
           data-book-card
           data-search="<?= htmlspecialchars($searchText) ?>">
+          <?php if (!$book->isAvailable()): ?>
+            <span class="books-page__status books-page__status--<?= htmlspecialchars($book->getStatusCssModifier()) ?>">
+              <?= htmlspecialchars($book->getStatusLabel()) ?>
+            </span>
+          <?php endif; ?>
+
           <img
             class="books-page__image"
             src="<?= htmlspecialchars($book->getImage()) ?>"

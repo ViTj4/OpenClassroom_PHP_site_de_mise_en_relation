@@ -57,7 +57,9 @@
         </span>
       </a>
 
-      <a class="book-detail__button" href="index.php?page=messages">
+      <a
+        class="book-detail__button"
+        href="index.php?page=message-start&amp;recipient=<?= htmlspecialchars($book->getOwnerUuid()) ?>">
         Envoyer un message
       </a>
     </article>

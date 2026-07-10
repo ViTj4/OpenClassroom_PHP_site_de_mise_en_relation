@@ -24,6 +24,7 @@
   <script src="assets/js/profile-picture-upload.js" defer></script>
   <script src="assets/js/book-image-preview.js" defer></script>
   <script src="assets/js/clickable-rows.js" defer></script>
+  <script src="assets/js/messages.js" defer></script>
   <script src="assets/js/toasts.js" defer></script>
 </body>
 

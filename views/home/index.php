@@ -45,6 +45,12 @@
     <div class="latest-books__grid">
       <?php foreach ($latestBooks as $book) : ?>
         <a class="latest-books__card" href="index.php?page=book&amp;uuid=<?= htmlspecialchars($book->getUuid()) ?>">
+          <?php if (!$book->isAvailable()): ?>
+            <span class="latest-books__status latest-books__status--<?= htmlspecialchars($book->getStatusCssModifier()) ?>">
+              <?= htmlspecialchars($book->getStatusLabel()) ?>
+            </span>
+          <?php endif; ?>
+
           <img
             class="latest-books__image"
             src="<?= htmlspecialchars($book->getImage()) ?>"
