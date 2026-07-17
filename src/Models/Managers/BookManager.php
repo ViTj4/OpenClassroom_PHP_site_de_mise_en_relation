@@ -59,6 +59,45 @@ class BookManager
     /**
      * @return Book[]
      */
+    public function findAllForAdmin(): array
+    {
+        $query = $this->dbManager->query(
+            'SELECT books.*, users.pseudo AS owner_pseudo, users.profile_picture AS owner_profile_picture
+             FROM books
+             INNER JOIN users ON users.uuid = books.owner_uuid
+             ORDER BY books.created_at DESC'
+        );
+
+        return array_map(
+            static fn (array $book): Book => Book::fromArray($book),
+            $query->fetchAll()
+        );
+    }
+
+    public function countAll(): int
+    {
+        $query = $this->dbManager->query('SELECT COUNT(*) AS books_count FROM books');
+        $result = $query->fetch();
+
+        return (int) ($result['books_count'] ?? 0);
+    }
+
+    public function countByStatus(string $status): int
+    {
+        $query = $this->dbManager->query(
+            'SELECT COUNT(*) AS books_count
+             FROM books
+             WHERE status = :status',
+            ['status' => $status]
+        );
+        $result = $query->fetch();
+
+        return (int) ($result['books_count'] ?? 0);
+    }
+
+    /**
+     * @return Book[]
+     */
     public function findByOwnerUuid(string $ownerUuid): array
     {
         $query = $this->dbManager->query(

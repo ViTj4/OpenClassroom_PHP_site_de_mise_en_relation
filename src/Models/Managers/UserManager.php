@@ -74,6 +74,44 @@ class UserManager
         return $user ? User::fromArray($user) : null;
     }
 
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
+    {
+        $query = $this->dbManager->query(
+            'SELECT *
+             FROM users
+             ORDER BY register_date DESC'
+        );
+
+        return array_map(
+            static fn (array $user): User => User::fromArray($user),
+            $query->fetchAll()
+        );
+    }
+
+    public function countAll(): int
+    {
+        $query = $this->dbManager->query('SELECT COUNT(*) AS users_count FROM users');
+        $result = $query->fetch();
+
+        return (int) ($result['users_count'] ?? 0);
+    }
+
+    public function countByType(string $userType): int
+    {
+        $query = $this->dbManager->query(
+            'SELECT COUNT(*) AS users_count
+             FROM users
+             WHERE user_type = :user_type',
+            ['user_type' => $userType]
+        );
+        $result = $query->fetch();
+
+        return (int) ($result['users_count'] ?? 0);
+    }
+
     public function updatePasswordHash(string $uuid, string $passwordHash): void
     {
         $this->dbManager->query(

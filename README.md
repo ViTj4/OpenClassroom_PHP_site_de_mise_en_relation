@@ -27,6 +27,22 @@ Avec XAMPP, il peut etre importe depuis phpMyAdmin ou en ligne de commande :
 mysql -u root < database/schema.sql
 ```
 
+### Compte administrateur
+
+Les comptes crees depuis l'application sont toujours de type `user`.
+Pour donner l'acces a l'administration, il faut promouvoir manuellement un
+utilisateur en base de donnees :
+
+```sql
+UPDATE users
+SET user_type = 'admin'
+WHERE email = 'admin@example.com';
+```
+
+Apres modification, deconnectez puis reconnectez ce compte pour que la session
+recupere le nouveau type utilisateur. La page `index.php?page=admin` devient
+alors accessible et le lien `Admin` apparait dans le header.
+
 ### Schema relationnel
 
 ```mermaid

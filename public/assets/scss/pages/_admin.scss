@@ -1,0 +1,254 @@
+@use "../abstracts/variables" as *;
+
+.admin-page {
+  min-height: calc(100vh - $header-height - $footer-height);
+  background-color: $color-section-background;
+
+  &__inner {
+    width: min(1140px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 88px 0 110px;
+  }
+
+  &__header {
+    max-width: 620px;
+  }
+
+  &__eyebrow {
+    margin: 0 0 12px;
+    color: #a6a6a6;
+    font-family: $font-family-text;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__title {
+    margin: 0;
+    color: #000000;
+    font-family: $font-family-title;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  &__intro {
+    margin: 18px 0 0;
+    color: $color-text;
+    font-family: $font-family-text;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+  }
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 42px;
+
+  &__item {
+    min-height: 118px;
+    padding: 24px;
+    border-radius: 14px;
+    background-color: $color-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__value {
+    color: $color-primary;
+    font-family: $font-family-title;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  &__label {
+    margin-top: 12px;
+    color: $color-text;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+  }
+}
+
+.admin-section {
+  margin-top: 34px;
+
+  &__header {
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-text;
+    font-family: $font-family-title;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  &__link {
+    color: $color-primary;
+    font-family: $font-family-text;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  &__link:hover,
+  &__link:focus-visible {
+    color: $color-primary-hover;
+    text-decoration: underline;
+  }
+}
+
+.admin-table-wrapper {
+  overflow-x: auto;
+  border-radius: 20px;
+  background-color: $color-white;
+}
+
+.admin-table {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: $color-text;
+  font-family: $font-family-text;
+
+  th {
+    height: 58px;
+    padding: 0 24px;
+    border-bottom: 1px solid #edeae5;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+  td {
+    height: 72px;
+    padding: 16px 24px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    vertical-align: middle;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #EDF2F6;
+  }
+
+  &__badge {
+    min-width: 86px;
+    height: 22px;
+    padding: 0 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  &__badge--admin,
+  &__badge--available {
+    background-color: #6DC5A1;
+  }
+
+  &__badge--user {
+    background-color: #8A8F98;
+  }
+
+  &__badge--reserved,
+  &__badge--unavailable {
+    background-color: #C56D6D;
+  }
+
+  &__badge--exchanged {
+    background-color: #8A8F98;
+  }
+
+  &__badge--removed {
+    background-color: #292929;
+  }
+
+  &__book-link {
+    color: $color-text;
+    text-decoration: underline;
+  }
+
+  &__empty {
+    height: 120px;
+    text-align: center;
+    color: #a6a6a6;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .admin-page {
+    min-height: calc(100vh - $mobile-header-height - $mobile-footer-height);
+
+    &__inner {
+      width: calc(100% - 40px);
+      padding: 58px 0 72px;
+    }
+
+    &__title {
+      font-size: 32px;
+    }
+
+    &__intro {
+      font-size: 14px;
+    }
+  }
+
+  .admin-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    &__item {
+      min-height: 104px;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    &__value {
+      font-size: 28px;
+    }
+  }
+
+  .admin-section {
+    &__header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  .admin-table {
+    min-width: 680px;
+
+    th,
+    td {
+      padding-right: 18px;
+      padding-left: 18px;
+    }
+  }
+}

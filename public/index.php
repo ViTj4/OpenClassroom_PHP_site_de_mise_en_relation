@@ -30,6 +30,7 @@ $authController    = new AuthController($userManager, $csrfTokenManager, $passwo
 $userController    = new UserController($userManager, $bookManager, $csrfTokenManager, $passwordHasher, $profilePictureUploader);
 $bookController    = new BookController($bookManager, $userManager, $csrfTokenManager, $bookImageUploader);
 $messageController = new MessageController($messageManager, $userManager, $csrfTokenManager);
+$adminController   = new AdminController($userManager, $bookManager);
 
 // Routeur minimaliste : la méthode HTTP et la page demandée pointent vers une méthode de contrôleur.
 // Si aucune route ne correspond, on affiche la page 404.
@@ -49,6 +50,7 @@ $routes = [
         'book-create'   => [$bookController, 'showCreate'],
         'book-edit'     => [$bookController, 'showEdit'],
         'book-delete'   => [$bookController, 'delete'],
+        'admin'         => [$adminController, 'dashboard'],
     ],
     'POST' => [
         'register'        => [$authController, 'register'],

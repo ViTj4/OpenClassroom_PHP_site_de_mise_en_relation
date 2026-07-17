@@ -5,7 +5,9 @@
   $isMessagesActive = $currentPage === 'messages';
   $isLoginActive = in_array($currentPage, ['login', 'register'], true);
   $isAccountActive = $currentPage === 'account';
+  $isAdminActive = $currentPage === 'admin';
   $connectedUser = $_SESSION['user'] ?? null;
+  $isConnectedAdmin = ($connectedUser['userType'] ?? null) === 'admin';
   $connectedUserPicture = $connectedUser['profilePicture'] ?? UserManager::DEFAULT_PROFILE_PICTURE;
   $connectedUserPseudo = $connectedUser['pseudo'] ?? 'lecteur';
 ?>
@@ -49,6 +51,17 @@
 
     <nav class="header__user-nav" id="header-user-navigation" aria-label="Navigation utilisateur">
       <ul class="header__user-list">
+        <?php if ($isConnectedAdmin): ?>
+          <li class="header__user-item">
+            <a
+              class="header__user-link<?= $isAdminActive ? ' header__user-link--active' : '' ?>"
+              href="index.php?page=admin"
+              <?= $isAdminActive ? 'aria-current="page"' : '' ?>>
+              Admin
+            </a>
+          </li>
+        <?php endif; ?>
+
         <?php if ($connectedUser !== null): ?>
           <li class="header__user-item">
             <a
