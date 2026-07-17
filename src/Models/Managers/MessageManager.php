@@ -62,7 +62,7 @@ class MessageManager
                 AND current_participant.deleted_at IS NULL
              INNER JOIN conversation_participants other_participant
                 ON other_participant.conversation_uuid = conversations.uuid
-                AND other_participant.user_uuid <>: user_uuid_for_other
+                AND other_participant.user_uuid <> :user_uuid_for_other
                 AND other_participant.deleted_at IS NULL
              INNER JOIN users other_user ON other_user.uuid = other_participant.user_uuid
              WHERE conversations.uuid                       = :conversation_uuid
@@ -76,7 +76,7 @@ class MessageManager
 
         $conversation = $query->fetch();
 
-        return $conversation?: null;
+        return $conversation ?: null;
     }
 
     public function findConversationBetweenUsers(string $firstUserUuid, string $secondUserUuid): ?array
@@ -101,7 +101,7 @@ class MessageManager
 
         $conversation = $query->fetch();
 
-        return $conversation?: null;
+        return $conversation ?: null;
     }
 
     public function createConversation(string $firstUserUuid, string $secondUserUuid): string
@@ -114,16 +114,16 @@ class MessageManager
             ['uuid' => $conversationUuid]
         );
 
-          // Une conversation est créée avec exactement deux lignes de participation.
-          // Cela permettra plus tard d'ajouter des métadonnées par utilisateur si besoin.
+        // Une conversation est créée avec exactement deux lignes de participation.
+        // Cela permettra plus tard d'ajouter des métadonnées par utilisateur si besoin.
         foreach ([$firstUserUuid, $secondUserUuid] as $userUuid) {
             $this->dbManager->query(
                 'INSERT INTO conversation_participants (
                     conversation_uuid,
                     user_uuid
                  ) VALUES (
-                    : conversation_uuid,
-                    : user_uuid
+                    :conversation_uuid,
+                    :user_uuid
                  )',
                 [
                     'conversation_uuid' => $conversationUuid,
@@ -135,12 +135,12 @@ class MessageManager
         return $conversationUuid;
     }
 
-      /**
+    /**
      * @return array<int, array<string, mixed>>
      */
     public function findMessagesForConversation(string $conversationUuid, string $userUuid): array
     {
-          // Sécurité : on vérifie d'abord que l'utilisateur appartient bien à la conversation.
+        // Sécurité : on vérifie d'abord que l'utilisateur appartient bien à la conversation.
         $conversation = $this->findConversationForUser($conversationUuid, $userUuid);
 
         if ($conversation === null) {
@@ -171,10 +171,10 @@ class MessageManager
                 sender_uuid,
                 content
              ) VALUES (
-                : uuid,
-                : conversation_uuid,
-                : sender_uuid,
-                : content
+                :uuid,
+                :conversation_uuid,
+                :sender_uuid,
+                :content
              )',
             [
                 'uuid'              => self::generateUuid(),
